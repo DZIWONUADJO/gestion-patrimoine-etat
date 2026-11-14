@@ -23,5 +23,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::define('manage-references', fn (User $user): bool => $user->is_active
             && $user->role === 'ADMIN');
+
+        Gate::define('manage-biens', fn (User $user): bool => $user->is_active
+            && in_array($user->role, ['ADMIN', 'GESTIONNAIRE'], true));
+
+        Gate::define('archive-biens', fn (User $user): bool => $user->is_active
+            && $user->role === 'ADMIN');
     }
 }
