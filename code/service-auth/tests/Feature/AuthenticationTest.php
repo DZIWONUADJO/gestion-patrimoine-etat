@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -24,7 +25,8 @@ class AuthenticationTest extends TestCase
         $response->assertOk()
             ->assertJsonPath('data.token_type', 'Bearer')
             ->assertJsonPath('data.user.id', $user->id)
-            ->assertJsonPath('data.user.email', $user->email);
+            ->assertJsonPath('data.user.email', $user->email)
+            ->assertJsonPath('data.user.role', UserRole::ServiceChief->value);
 
         $token = $response->json('data.access_token');
         $this->assertIsString($token);
@@ -52,6 +54,33 @@ class AuthenticationTest extends TestCase
             ->assertExactJson([
                 'message' => 'Les identifiants fournis sont incorrects.',
             ]);
+    }
+
+    public function test_login_rejects_inactive_users(): void
+    {
+        $user = User::factory()->create([
+            'password' => 'correct-password',
+            'is_active' => false,
+        ]);
+
+        $this->postJson('/api/login', [
+            'email' => $user->email,
+            'password' => 'correct-password',
+        ])->assertUnauthorized();
+
+        $this->assertDatabaseCount('personal_access_tokens', 0);
+    }
+
+    public function test_inactive_user_cannot_use_an_existing_bearer_token(): void
+    {
+        $user = User::factory()->create();
+        $token = $user->createToken('test')->plainTextToken;
+        $user->is_active = false;
+        $user->save();
+
+        $this->withToken($token)
+            ->getJson('/api/user')
+            ->assertUnauthorized();
     }
 
     public function test_login_validates_required_credentials(): void

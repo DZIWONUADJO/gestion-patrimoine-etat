@@ -20,7 +20,9 @@ class AuthController extends Controller
 
         $user = User::where('email', $credentials['email'])->first();
 
-        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
+        if (! $user
+            || ! $user->is_active
+            || ! Hash::check($credentials['password'], $user->password)) {
             return response()->json([
                 'message' => 'Les identifiants fournis sont incorrects.',
             ], 401);
@@ -60,7 +62,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @return array{id: int|string, name: string, email: string}
+     * @return array{id: int|string, name: string, email: string, role: string, service_id: int|null}
      */
     private function userData(User $user): array
     {
@@ -68,6 +70,8 @@ class AuthController extends Controller
             'id' => $user->getKey(),
             'name' => $user->name,
             'email' => $user->email,
+            'role' => $user->role->value,
+            'service_id' => $user->service_id,
         ];
     }
 }
