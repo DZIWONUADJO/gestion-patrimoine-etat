@@ -38,16 +38,17 @@
                     </svg>
                     Référentiels
                 </a>
-                <span class="flex items-center justify-between rounded-xl px-4 py-3 text-sm text-emerald-50/40">
-                    <span class="flex items-center gap-3">
-                        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                            <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z"/>
-                            <path d="m4.5 7.8 7.5 4.3 7.5-4.3M12 12v8.5"/>
-                        </svg>
-                        Inventaire
-                    </span>
-                    <span class="rounded-full bg-white/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide">Bientôt</span>
-                </span>
+                <a href="{{ route('biens.index') }}" @class([
+                    'flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition',
+                    'bg-white/12 text-white' => request()->routeIs('biens.*'),
+                    'text-emerald-50/75 hover:bg-white/8 hover:text-white' => ! request()->routeIs('biens.*'),
+                ])>
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                        <path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z"/>
+                        <path d="m4.5 7.8 7.5 4.3 7.5-4.3M12 12v8.5"/>
+                    </svg>
+                    Inventaire
+                </a>
                 <span class="flex items-center justify-between rounded-xl px-4 py-3 text-sm text-emerald-50/40">
                     <span class="flex items-center gap-3">
                         <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -78,6 +79,7 @@
                     <p class="mt-1 text-sm font-semibold text-slate-700">@yield('header-label', 'Espace sécurisé')</p>
                 </div>
                 <div class="flex items-center gap-3">
+                    @php($user = auth()->user())
                     <div class="hidden text-right sm:block">
                         <p class="text-sm font-semibold">{{ $user->name }}</p>
                         <p class="text-xs text-slate-500">{{ str_replace('_', ' ', $user->role) }}</p>

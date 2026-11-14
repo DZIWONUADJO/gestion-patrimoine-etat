@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BienRequest;
 use App\Models\Bien;
 use App\Models\BienDocument;
 use Illuminate\Http\JsonResponse;
@@ -48,11 +49,9 @@ class BienController extends Controller
         ]);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(BienRequest $request): JsonResponse
     {
-        $validated = $this->validateBien($request);
-
-        $bien = Bien::create($validated);
+        $bien = Bien::create($request->validated());
 
         return response()->json([
             'data' => $this->bienData($bien->load(['categorie:id,libelle', 'service:id,nom_service'])),
@@ -68,13 +67,11 @@ class BienController extends Controller
         ]);
     }
 
-    public function update(Request $request, Bien $bien): JsonResponse
+    public function update(BienRequest $request, Bien $bien): JsonResponse
     {
         $this->ensureNotArchived($bien);
 
-        $validated = $this->validateBien($request, $bien);
-
-        $bien->update($validated);
+        $bien->update($request->validated());
 
         return response()->json([
             'data' => $this->bienData($bien->refresh()->load(['categorie:id,libelle', 'service:id,nom_service'])),
@@ -161,33 +158,6 @@ class BienController extends Controller
         }
 
         return Storage::disk('local')->download($document->chemin, $document->nom);
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    private function validateBien(Request $request, ?Bien $bien = null): array
-    {
-        $required = $bien === null ? 'required' : 'sometimes';
-
-        return $request->validate([
-            'numero_inventaire' => [
-                $required, 'string', 'max:100',
-                Rule::unique('biens', 'numero_inventaire')->ignore($bien?->getKey()),
-            ],
-            'designation' => [$required, 'string', 'max:255'],
-            'description' => ['sometimes', 'nullable', 'string'],
-            'categorie_id' => [$required, 'integer', 'exists:categories,id'],
-            'service_id' => [$required, 'integer', 'exists:services,id'],
-            'etat' => ['sometimes', 'required', 'string', Rule::in(Bien::ETATS)],
-            'localisation' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'marque' => ['sometimes', 'nullable', 'string', 'max:100'],
-            'modele' => ['sometimes', 'nullable', 'string', 'max:100'],
-            'numero_serie' => ['sometimes', 'nullable', 'string', 'max:100'],
-            'date_acquisition' => ['sometimes', 'nullable', 'date'],
-            'valeur_acquisition' => ['sometimes', 'nullable', 'numeric', 'min:0'],
-            'fournisseur' => ['sometimes', 'nullable', 'string', 'max:255'],
-        ]);
     }
 
     private function ensureNotArchived(Bien $bien): void
