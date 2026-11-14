@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: patrimoine_db
+    environment:
+      POSTGRES_DB: patrimoine_etat
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  service-auth:
+    build: ./service-auth
+    container_name: service_auth
+    ports:
+      - "8001:8000"
+    depends_on:
+      - postgres
+
+  service-patrimoine:
+    build: ./service-patrimoine
+    container_name: service_patrimoine
+    ports:
+      - "8002:8000"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
