@@ -22,8 +22,11 @@ services:
   service-patrimoine:
     build: ./service-patrimoine
     container_name: service_patrimoine
+    environment:
+      APP_NAME: "SGPE"
+      APP_URL: "http://127.0.0.1:8002"
     ports:
-      - "8002:8000"
+      - "8002:80"
     depends_on:
       - postgres
 

@@ -31,12 +31,17 @@ class SessionController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        if (! Auth::attempt(
-            $credentials + ['is_active' => true],
-            $request->boolean('remember'),
-        )) {
+        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             throw ValidationException::withMessages([
                 'email' => 'Identifiants invalides ou compte désactivé.',
+            ]);
+        }
+
+        // Vérifier que le compte est actif après authentification
+        if (! $request->user()->is_active) {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'email' => 'Ce compte est désactivé.',
             ]);
         }
 
