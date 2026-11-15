@@ -16,7 +16,6 @@
             <div class="absolute -bottom-48 -left-20 size-[460px] rounded-full bg-[#c4e7a5]/10 blur-2xl"></div>
 
             <a href="{{ route('login') }}" class="relative flex items-center gap-3">
-                <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Emblème SGPE" class="h-10 w-auto drop-shadow">
                 <span>
                     <span class="block text-lg font-bold tracking-wide">SGPE</span>
                     <span class="block text-xs text-emerald-100/70">Gestion du patrimoine de l’État</span>
@@ -50,10 +49,9 @@
 
         <section class="relative flex items-center justify-center overflow-hidden px-5 py-12 sm:px-10">
             <img src="{{ asset('images/armoiries-togo.svg') }}" alt="" aria-hidden="true"
-                class="pointer-events-none absolute -right-16 top-1/2 h-96 w-auto -translate-y-1/2 opacity-[0.04]">
+                class="pointer-events-none absolute -right-6 top-1/2 h-48 w-auto -translate-y-1/2 opacity-[0.04]">
             <div class="relative w-full max-w-md">
                 <a href="{{ route('login') }}" class="mb-10 flex items-center gap-3 lg:hidden">
-                    <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Emblème SGPE" class="h-10 w-auto drop-shadow-sm">
                     <span>
                         <span class="block text-lg font-bold text-[#103d32]">SGPE</span>
                         <span class="block text-xs text-slate-500">Gestion du patrimoine de l’État</span>
