@@ -1,0 +1,48 @@
+# Docker Compose de production — SGPE
+# Usage : docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+# Toutes les variables sont lues depuis code/.env (même fichier que docker compose
+# classique) — voir docs/DEPLOIEMENT-PILOTE.md section 3.1.
+# Les ports ne sont exposés que sur 127.0.0.1 : le reverse proxy (nginx/hôte)
+# doit tourner sur le même serveur et proxyfier vers http://127.0.0.1:8001 et :8002.
+
+x-laravel-env: &laravel-env
+  APP_ENV: production
+  APP_DEBUG: "false"
+  DB_CONNECTION: pgsql
+  DB_HOST: postgres
+  DB_PORT: "5432"
+  DB_DATABASE: ${DB_DATABASE:-patrimoine_etat}
+  DB_USERNAME: ${DB_USERNAME:-admin}
+  DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD requis dans code/.env}
+  SESSION_DRIVER: database
+  SESSION_SECURE_COOKIE: "true"
+
+services:
+  postgres:
+    ports: !override
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-patrimoine_etat}
+      POSTGRES_USER: ${DB_USERNAME:-admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD requis dans code/.env}
+    restart: unless-stopped
+
+  service-auth:
+    environment:
+      <<: *laravel-env
+      APP_NAME: "SGPE Auth"
+      APP_URL: ${AUTH_URL:-http://127.0.0.1:8001}
+      APP_KEY: ${AUTH_APP_KEY:?AUTH_APP_KEY requis dans code/.env}
+    ports: !override
+      - "127.0.0.1:8001:8000"
+    restart: unless-stopped
+
+  service-patrimoine:
+    environment:
+      <<: *laravel-env
+      APP_NAME: "SGPE"
+      APP_URL: ${APP_URL:?APP_URL requis dans code/.env}
+      APP_KEY: ${PATRIMOINE_APP_KEY:?PATRIMOINE_APP_KEY requis dans code/.env}
+    ports: !override
+      - "127.0.0.1:8002:80"
+    restart: unless-stopped
