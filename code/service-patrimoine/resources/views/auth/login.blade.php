@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Connexion · SGPE</title>
-    <link rel="icon" type="image/svg+xml" href="{{ asset('images/embleme-sgpe.svg') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/armoiries-togo.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-[#f5f7f5] font-sans text-slate-900 antialiased">
@@ -16,7 +16,7 @@
             <div class="absolute -bottom-48 -left-20 size-[460px] rounded-full bg-[#c4e7a5]/10 blur-2xl"></div>
 
             <a href="{{ route('login') }}" class="relative flex items-center gap-3">
-                <img src="{{ asset('images/embleme-sgpe.svg') }}" alt="Emblème SGPE" class="size-12 rounded-2xl bg-white shadow-lg">
+                <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Emblème SGPE" class="h-14 w-auto drop-shadow">
                 <span>
                     <span class="block text-lg font-bold tracking-wide">SGPE</span>
                     <span class="block text-xs text-emerald-100/70">Gestion du patrimoine de l’État</span>
@@ -51,7 +51,7 @@
         <section class="flex items-center justify-center px-5 py-12 sm:px-10">
             <div class="w-full max-w-md">
                 <a href="{{ route('login') }}" class="mb-12 flex items-center gap-3 lg:hidden">
-                    <img src="{{ asset('images/embleme-sgpe.svg') }}" alt="Emblème SGPE" class="size-11 rounded-xl bg-white shadow-md">
+                    <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Emblème SGPE" class="h-12 w-auto drop-shadow-sm">
                     <span>
                         <span class="block text-lg font-bold text-[#103d32]">SGPE</span>
                         <span class="block text-xs text-slate-500">Gestion du patrimoine de l’État</span>

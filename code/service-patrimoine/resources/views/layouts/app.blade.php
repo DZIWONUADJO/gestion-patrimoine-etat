@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Tableau de bord') · SGPE</title>
-    <link rel="icon" type="image/svg+xml" href="{{ asset('images/embleme-sgpe.svg') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/armoiries-togo.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-[#f5f7f5] font-sans text-slate-900 antialiased">
     <div class="min-h-screen lg:grid lg:grid-cols-[260px_1fr]">
         <aside class="flex flex-col bg-[#103d32] text-white">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-6 py-6">
-                <img src="{{ asset('images/embleme-sgpe.svg') }}" alt="Emblème SGPE" class="size-11 rounded-xl bg-white shadow-sm">
+                <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Emblème SGPE" class="h-10 w-auto drop-shadow-sm">
                 <span>
                     <span class="block text-lg font-bold tracking-wide">SGPE</span>
                     <span class="block text-xs text-emerald-100/70">Patrimoine de l’État</span>
