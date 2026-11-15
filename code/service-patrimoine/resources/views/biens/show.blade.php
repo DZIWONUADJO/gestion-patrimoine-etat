@@ -158,6 +158,100 @@
             </section>
         </div>
 
+            <section class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400">Affectations et transferts</h2>
+                    <span class="rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">{{ $bien->affectations->count() }}</span>
+                </div>
+
+                <div class="mt-4 divide-y divide-slate-100">
+                    @forelse ($bien->affectations as $affectation)
+                        <div class="py-3">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <p class="text-sm font-medium text-slate-800">
+                                    {{ $affectation->serviceOrigine?->nom_service ?? 'Non affecté' }}
+                                    <span class="text-slate-400">→</span>
+                                    {{ $affectation->serviceDestinataire?->nom_service ?? '—' }}
+                                </p>
+                                @php
+                                    $affectationStyles = [
+                                        'EN_ATTENTE' => 'bg-amber-50 text-amber-700',
+                                        'VALIDEE' => 'bg-emerald-50 text-emerald-700',
+                                        'REJETEE' => 'bg-red-50 text-red-700',
+                                        'ANNULEE' => 'bg-slate-100 text-slate-500',
+                                    ];
+                                    $affectationLabels = [
+                                        'EN_ATTENTE' => 'En attente',
+                                        'VALIDEE' => 'Validée',
+                                        'REJETEE' => 'Rejetée',
+                                        'ANNULEE' => 'Annulée',
+                                    ];
+                                @endphp
+                                <span class="rounded-full px-2.5 py-1 text-xs font-semibold {{ $affectationStyles[$affectation->statut] ?? 'bg-slate-100 text-slate-600' }}">
+                                    {{ $affectationLabels[$affectation->statut] ?? $affectation->statut }}
+                                </span>
+                            </div>
+                            <p class="mt-1 text-xs text-slate-500">
+                                Demandée par {{ $affectation->demandeur?->name ?? '—' }} le {{ $affectation->date_demande?->format('d/m/Y') }}
+                                @if ($affectation->date_effet) · effet le {{ $affectation->date_effet->format('d/m/Y') }} @endif
+                                @if ($affectation->date_fin) · jusqu’au {{ $affectation->date_fin->format('d/m/Y') }} @endif
+                                @if ($affectation->valideur) · validée par {{ $affectation->valideur->name }} @endif
+                            </p>
+                            @if ($affectation->motif)
+                                <p class="mt-1 text-xs text-slate-400">Motif : {{ $affectation->motif }}</p>
+                            @endif
+                            @if ($affectation->motif_decision && $affectation->statut !== 'EN_ATTENTE')
+                                <p class="mt-1 text-xs text-slate-400">Décision : {{ $affectation->motif_decision }}</p>
+                            @endif
+                            @if ($affectation->localisation_destinataire)
+                                <p class="mt-1 text-xs text-slate-400">Nouvelle localisation : {{ $affectation->localisation_destinataire }}</p>
+                            @endif
+                        </div>
+                    @empty
+                        <p class="py-6 text-center text-sm text-slate-500">Aucune affectation enregistrée.</p>
+                    @endforelse
+                </div>
+
+                @can('manage-biens')
+                    @if ($bien->is_active)
+                        <form method="POST" action="{{ route('affectations.store', $bien) }}" class="mt-4 grid gap-3 border-t border-slate-100 pt-4 sm:grid-cols-2">
+                            @csrf
+                            <div class="sm:col-span-2">
+                                <label for="service_destinataire_id" class="mb-1 block text-xs font-semibold text-slate-600">Service destinataire</label>
+                                <select id="service_destinataire_id" name="service_destinataire_id" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#497e62] @error('service_destinataire_id') border-red-300 @enderror">
+                                    <option value="">Choisir…</option>
+                                    @foreach ($services as $service)
+                                        <option value="{{ $service->id }}" @selected((string) old('service_destinataire_id') === (string) $service->id)>{{ $service->nom_service }}</option>
+                                    @endforeach
+                                </select>
+                                @error('service_destinataire_id')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
+                                @error('bien')<p class="mt-1 text-xs text-red-600">{{ $message }}</p>@enderror
+                            </div>
+                            <div>
+                                <label for="localisation_destinataire" class="mb-1 block text-xs font-semibold text-slate-600">Nouvelle localisation</label>
+                                <input type="text" id="localisation_destinataire" name="localisation_destinataire" value="{{ old('localisation_destinataire') }}" maxlength="255" placeholder="Ex. Direction régionale de Kara"
+                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                            </div>
+                            <div>
+                                <label for="date_effet" class="mb-1 block text-xs font-semibold text-slate-600">Date d’effet souhaitée</label>
+                                <input type="date" id="date_effet" name="date_effet" value="{{ old('date_effet') }}"
+                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="motif" class="mb-1 block text-xs font-semibold text-slate-600">Motif du mouvement</label>
+                                <textarea id="motif" name="motif" rows="2" maxlength="2000" placeholder="Raison du transfert ou de l’affectation…"
+                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">{{ old('motif') }}</textarea>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <button type="submit" class="rounded-lg bg-[#103d32] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0d3227]">Demander l’affectation</button>
+                                <p class="mt-2 text-xs text-slate-400">La demande devra être validée par un responsable habilité (ADMIN ou CHEF_SERVICE).</p>
+                            </div>
+                        </form>
+                    @endif
+                @endcan
+            </section>
+        </div>
+
         <div class="space-y-6">
             <section class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
                 <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400">Acquisition</h2>
@@ -189,7 +283,7 @@
                         <dd class="text-slate-700">{{ $bien->updated_at?->format('d/m/Y à H:i') }}</dd>
                     </div>
                 </dl>
-                <p class="mt-4 border-t border-slate-100 pt-3 text-xs leading-5 text-slate-400">Les affectations, transferts et changements d’état historisés apparaîtront ici dans les prochains modules.</p>
+                <p class="mt-4 border-t border-slate-100 pt-3 text-xs leading-5 text-slate-400">Les changements d’état historisés apparaîtront ici avec le module de maintenance.</p>
             </section>
         </div>
     </div>

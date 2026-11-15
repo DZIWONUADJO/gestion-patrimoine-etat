@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\AffectationController;
 use App\Http\Controllers\Web\BienController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\SessionController;
@@ -28,6 +29,8 @@ Route::middleware(['auth', 'web.active'])->group(function () {
     Route::middleware('can:manage-biens')->group(function () {
         Route::get('/biens/{bien}/modifier', [BienController::class, 'edit'])->name('biens.edit');
         Route::match(['put', 'patch'], '/biens/{bien}', [BienController::class, 'update'])->name('biens.update');
+        Route::post('/biens/{bien}/affectations', [AffectationController::class, 'store'])
+            ->name('affectations.store');
         Route::post('/biens/{bien}/documents', [BienController::class, 'storeDocument'])
             ->name('biens.documents.store');
         Route::delete('/biens/{bien}/documents/{document}', [BienController::class, 'destroyDocument'])
@@ -37,5 +40,16 @@ Route::middleware(['auth', 'web.active'])->group(function () {
     Route::middleware('can:archive-biens')->group(function () {
         Route::post('/biens/{bien}/archiver', [BienController::class, 'archiver'])->name('biens.archive');
         Route::post('/biens/{bien}/restaurer', [BienController::class, 'restaurer'])->name('biens.restore');
+    });
+
+    Route::get('/mouvements', [AffectationController::class, 'index'])->name('mouvements.index');
+    Route::post('/mouvements/{affectation}/annuler', [AffectationController::class, 'annuler'])
+        ->name('affectations.annuler');
+
+    Route::middleware('can:validate-affectations')->group(function () {
+        Route::post('/mouvements/{affectation}/valider', [AffectationController::class, 'valider'])
+            ->name('affectations.valider');
+        Route::post('/mouvements/{affectation}/rejeter', [AffectationController::class, 'rejeter'])
+            ->name('affectations.rejeter');
     });
 });

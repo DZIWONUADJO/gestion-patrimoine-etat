@@ -29,5 +29,8 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('archive-biens', fn (User $user): bool => $user->is_active
             && $user->role === 'ADMIN');
+
+        Gate::define('validate-affectations', fn (User $user): bool => $user->is_active
+            && in_array($user->role, ['ADMIN', 'CHEF_SERVICE'], true));
     }
 }

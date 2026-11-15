@@ -77,10 +77,23 @@ class BienController extends Controller
 
     public function show(Bien $bien): View
     {
-        $bien->load(['categorie', 'service', 'documents.uploadeur']);
+        $bien->load([
+            'categorie',
+            'service',
+            'documents.uploadeur',
+            'affectations' => fn ($query) => $query
+                ->with([
+                    'serviceOrigine:id,nom_service',
+                    'serviceDestinataire:id,nom_service',
+                    'demandeur:id,name',
+                    'valideur:id,name',
+                ])
+                ->orderByDesc('date_demande'),
+        ]);
 
         return view('biens.show', [
             'bien' => $bien,
+            'services' => Service::query()->where('is_active', true)->orderBy('nom_service')->get(),
         ]);
     }
 

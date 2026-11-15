@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AffectationController;
 use App\Http\Controllers\Api\BienController;
 use App\Http\Controllers\Api\CategorieController;
 use App\Http\Controllers\Api\ServiceController;
@@ -26,6 +27,16 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
         Route::match(['put', 'patch'], '/biens/{bien}', [BienController::class, 'update']);
         Route::post('/biens/{bien}/documents', [BienController::class, 'storeDocument']);
         Route::delete('/biens/{bien}/documents/{document}', [BienController::class, 'destroyDocument']);
+        Route::post('/biens/{bien}/affectations', [AffectationController::class, 'store']);
+    });
+
+    Route::get('/affectations', [AffectationController::class, 'index']);
+    Route::get('/affectations/{affectation}', [AffectationController::class, 'show']);
+    Route::post('/affectations/{affectation}/annuler', [AffectationController::class, 'annuler']);
+
+    Route::middleware('can:validate-affectations')->group(function () {
+        Route::post('/affectations/{affectation}/valider', [AffectationController::class, 'valider']);
+        Route::post('/affectations/{affectation}/rejeter', [AffectationController::class, 'rejeter']);
     });
 
     Route::middleware('can:archive-biens')->group(function () {

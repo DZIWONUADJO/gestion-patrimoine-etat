@@ -64,4 +64,9 @@ class Bien extends Model
     {
         return $this->hasMany(BienDocument::class);
     }
+
+    public function affectations(): HasMany
+    {
+        return $this->hasMany(Affectation::class);
+    }
 }
