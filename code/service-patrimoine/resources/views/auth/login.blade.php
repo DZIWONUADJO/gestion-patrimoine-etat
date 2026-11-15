@@ -49,7 +49,7 @@
 
         <section class="relative flex items-center justify-center overflow-hidden px-5 py-12 sm:px-10">
             <img src="{{ asset('images/armoiries-togo.svg') }}" alt="" aria-hidden="true"
-                class="pointer-events-none absolute -right-6 top-1/2 h-48 w-auto -translate-y-1/2 opacity-[0.04]">
+                class="pointer-events-none absolute -right-4 top-1/2 h-24 w-auto -translate-y-1/2 opacity-[0.04]">
             <div class="relative w-full max-w-md">
                 <a href="{{ route('login') }}" class="mb-10 flex items-center gap-3 lg:hidden">
                     <span>
