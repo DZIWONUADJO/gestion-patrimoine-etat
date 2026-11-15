@@ -12,7 +12,7 @@
     <div class="min-h-screen lg:grid lg:grid-cols-[260px_1fr]">
         <aside class="flex flex-col bg-[#103d32] text-white">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-6 py-6">
-                <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Emblème SGPE" class="h-9 w-auto drop-shadow-sm">
+                <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Emblème SGPE" class="h-8 w-auto drop-shadow-sm">
                 <span>
                     <span class="block text-lg font-bold tracking-wide">SGPE</span>
                     <span class="block text-xs text-emerald-100/70">Patrimoine de l’État</span>
