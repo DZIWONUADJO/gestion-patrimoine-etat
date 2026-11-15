@@ -60,6 +60,17 @@
                     </svg>
                     Mouvements
                 </a>
+                <a href="{{ route('inventaires.index') }}" @class([
+                    'flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition',
+                    'bg-white/12 text-white' => request()->routeIs('inventaires.*'),
+                    'text-emerald-50/75 hover:bg-white/8 hover:text-white' => ! request()->routeIs('inventaires.*'),
+                ])>
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                        <path d="m9 11 3 3L22 4"/>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                    </svg>
+                    Contrôles
+                </a>
             </nav>
 
             <div class="mt-auto p-4">

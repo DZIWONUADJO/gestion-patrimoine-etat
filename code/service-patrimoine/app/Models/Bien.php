@@ -69,4 +69,14 @@ class Bien extends Model
     {
         return $this->hasMany(Affectation::class);
     }
+
+    public function etatHistoriques(): HasMany
+    {
+        return $this->hasMany(EtatHistorique::class)->orderByDesc('created_at');
+    }
+
+    public function interventions(): HasMany
+    {
+        return $this->hasMany(Intervention::class)->orderByDesc('created_at');
+    }
 }

@@ -3,7 +3,9 @@
 use App\Http\Controllers\Web\AffectationController;
 use App\Http\Controllers\Web\BienController;
 use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\InventaireController;
 use App\Http\Controllers\Web\SessionController;
+use App\Http\Controllers\Web\SuiviController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/connexion', [SessionController::class, 'create'])->name('login');
@@ -52,4 +54,24 @@ Route::middleware(['auth', 'web.active'])->group(function () {
         Route::post('/mouvements/{affectation}/rejeter', [AffectationController::class, 'rejeter'])
             ->name('affectations.rejeter');
     });
+
+    Route::middleware('can:manage-biens')->group(function () {
+        Route::post('/biens/{bien}/etat', [SuiviController::class, 'changerEtat'])
+            ->name('biens.etat');
+        Route::post('/biens/{bien}/interventions', [SuiviController::class, 'storeIntervention'])
+            ->name('interventions.store');
+        Route::post('/interventions/{intervention}/terminer', [SuiviController::class, 'terminerIntervention'])
+            ->name('interventions.terminer');
+        Route::post('/interventions/{intervention}/annuler', [SuiviController::class, 'annulerIntervention'])
+            ->name('interventions.annuler');
+    });
+
+    Route::get('/inventaires', [InventaireController::class, 'index'])->name('inventaires.index');
+    Route::get('/inventaires/nouveau', [InventaireController::class, 'create'])->name('inventaires.create');
+    Route::post('/inventaires', [InventaireController::class, 'store'])->name('inventaires.store');
+    Route::get('/inventaires/{inventaire}', [InventaireController::class, 'show'])->name('inventaires.show');
+    Route::post('/inventaires/{inventaire}/lignes', [InventaireController::class, 'storeLigne'])
+        ->name('inventaires.lignes.store');
+    Route::post('/inventaires/{inventaire}/cloturer', [InventaireController::class, 'cloturer'])
+        ->name('inventaires.cloturer');
 });

@@ -89,6 +89,8 @@ class BienController extends Controller
                     'valideur:id,name',
                 ])
                 ->orderByDesc('date_demande'),
+            'etatHistoriques.auteur:id,name',
+            'interventions.auteur:id,name',
         ]);
 
         return view('biens.show', [

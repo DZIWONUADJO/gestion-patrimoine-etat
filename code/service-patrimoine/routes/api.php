@@ -3,7 +3,9 @@
 use App\Http\Controllers\Api\AffectationController;
 use App\Http\Controllers\Api\BienController;
 use App\Http\Controllers\Api\CategorieController;
+use App\Http\Controllers\Api\InventaireController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\SuiviController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,12 +24,25 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
     Route::get('/biens/{bien}/documents/{document}/telecharger', [BienController::class, 'downloadDocument'])
         ->name('biens.documents.download');
 
+    Route::get('/biens/{bien}/historiques-etats', [SuiviController::class, 'indexHistoriques']);
+    Route::get('/biens/{bien}/interventions', [SuiviController::class, 'indexInterventions']);
+    Route::post('/interventions/{intervention}/annuler', [SuiviController::class, 'annulerIntervention']);
+
+    Route::get('/inventaires', [InventaireController::class, 'index']);
+    Route::post('/inventaires', [InventaireController::class, 'store']);
+    Route::get('/inventaires/{inventaire}', [InventaireController::class, 'show']);
+    Route::post('/inventaires/{inventaire}/lignes', [InventaireController::class, 'storeLigne']);
+    Route::post('/inventaires/{inventaire}/cloturer', [InventaireController::class, 'cloturer']);
+
     Route::middleware('can:manage-biens')->group(function () {
         Route::post('/biens', [BienController::class, 'store']);
         Route::match(['put', 'patch'], '/biens/{bien}', [BienController::class, 'update']);
         Route::post('/biens/{bien}/documents', [BienController::class, 'storeDocument']);
         Route::delete('/biens/{bien}/documents/{document}', [BienController::class, 'destroyDocument']);
         Route::post('/biens/{bien}/affectations', [AffectationController::class, 'store']);
+        Route::post('/biens/{bien}/etat', [SuiviController::class, 'changerEtat']);
+        Route::post('/biens/{bien}/interventions', [SuiviController::class, 'storeIntervention']);
+        Route::post('/interventions/{intervention}/terminer', [SuiviController::class, 'terminerIntervention']);
     });
 
     Route::get('/affectations', [AffectationController::class, 'index']);
