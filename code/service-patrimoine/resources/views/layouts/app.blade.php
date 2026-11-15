@@ -71,6 +71,17 @@
                     </svg>
                     Contrôles
                 </a>
+                <a href="{{ route('rapports.index') }}" @class([
+                    'flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition',
+                    'bg-white/12 text-white' => request()->routeIs('rapports.*'),
+                    'text-emerald-50/75 hover:bg-white/8 hover:text-white' => ! request()->routeIs('rapports.*'),
+                ])>
+                    <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                        <path d="M12 3v12m0 0 4-4m-4 4-4-4"/>
+                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+                    </svg>
+                    Rapports
+                </a>
             </nav>
 
             <div class="mt-auto p-4">
@@ -91,7 +102,7 @@
                     <p class="mt-1 text-sm font-semibold text-slate-700">@yield('header-label', 'Espace sécurisé')</p>
                 </div>
                 <div class="flex items-center gap-3">
-                    @php($user = auth()->user())
+                    @php $user = auth()->user(); @endphp
                     <div class="hidden text-right sm:block">
                         <p class="text-sm font-semibold">{{ $user->name }}</p>
                         <p class="text-xs text-slate-500">{{ str_replace('_', ' ', $user->role) }}</p>

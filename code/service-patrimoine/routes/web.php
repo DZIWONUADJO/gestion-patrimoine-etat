@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\AffectationController;
 use App\Http\Controllers\Web\BienController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\InventaireController;
+use App\Http\Controllers\Web\RapportController;
 use App\Http\Controllers\Web\SessionController;
 use App\Http\Controllers\Web\SuiviController;
 use Illuminate\Support\Facades\Route;
@@ -74,4 +75,8 @@ Route::middleware(['auth', 'web.active'])->group(function () {
         ->name('inventaires.lignes.store');
     Route::post('/inventaires/{inventaire}/cloturer', [InventaireController::class, 'cloturer'])
         ->name('inventaires.cloturer');
+
+    Route::get('/rapports', [RapportController::class, 'index'])->name('rapports.index');
+    Route::get('/rapports/biens', [RapportController::class, 'biens'])->name('rapports.biens');
+    Route::get('/rapports/mouvements', [RapportController::class, 'mouvements'])->name('rapports.mouvements');
 });
