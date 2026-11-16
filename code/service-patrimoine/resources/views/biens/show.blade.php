@@ -35,7 +35,7 @@
 
     <section class="flex flex-col justify-between gap-5 sm:flex-row sm:items-start">
         <div>
-            <a href="{{ route('biens.index') }}" class="text-xs font-semibold text-[#497e62] hover:underline">← Inventaire</a>
+            <a href="{{ route('biens.index') }}" class="text-xs font-semibold text-[#006a4f] hover:underline">← Inventaire</a>
             <div class="mt-2 flex flex-wrap items-center gap-3">
                 <h1 class="text-3xl font-semibold tracking-tight text-slate-900">{{ $bien->designation }}</h1>
                 <span class="rounded-full px-3 py-1 text-xs font-semibold {{ $etatStyles[$bien->etat] ?? 'bg-slate-100 text-slate-600' }}">
@@ -116,14 +116,14 @@
                     @forelse ($bien->documents as $document)
                         <div class="flex items-center justify-between gap-3 py-3">
                             <div class="flex min-w-0 items-center gap-3">
-                                <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-[#edf5ee] text-[#285c48]">
+                                <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-[#eef4ef] text-[#006a4f]">
                                     <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                                         <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/>
                                         <path d="M14 3v6h6"/>
                                     </svg>
                                 </span>
                                 <div class="min-w-0">
-                                    <a href="{{ route('biens.documents.download', [$bien, $document]) }}" class="block truncate text-sm font-medium text-slate-800 hover:text-[#285c48] hover:underline">{{ $document->nom }}</a>
+                                    <a href="{{ route('biens.documents.download', [$bien, $document]) }}" class="block truncate text-sm font-medium text-slate-800 hover:text-[#006a4f] hover:underline">{{ $document->nom }}</a>
                                     <p class="text-xs text-slate-400">{{ $document->uploadeur?->name ?? '—' }} · {{ $document->created_at?->format('d/m/Y') }}
                                         @if ($document->taille) · {{ number_format($document->taille / 1024, 0, ',', ' ') }} Ko @endif
                                     </p>
@@ -149,8 +149,8 @@
                         <form method="POST" action="{{ route('biens.documents.store', $bien) }}" enctype="multipart/form-data" class="mt-4 flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center">
                             @csrf
                             <input type="file" id="fichier" name="fichier" required accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.csv,.txt"
-                                class="flex-1 text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-[#edf5ee] file:px-3 file:py-2 file:text-xs file:font-semibold file:text-[#285c48]">
-                            <button type="submit" class="rounded-lg bg-[#103d32] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0d3227]">Ajouter</button>
+                                class="flex-1 text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-[#eef4ef] file:px-3 file:py-2 file:text-xs file:font-semibold file:text-[#006a4f]">
+                            <button type="submit" class="rounded-lg bg-[#006a4f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#004d3a]">Ajouter</button>
                         </form>
                         @error('fichier')<p class="mt-2 text-xs text-red-600">{{ $message }}</p>@enderror
                     @endif
@@ -218,7 +218,7 @@
                             @csrf
                             <div class="sm:col-span-2">
                                 <label for="service_destinataire_id" class="mb-1 block text-xs font-semibold text-slate-600">Service destinataire</label>
-                                <select id="service_destinataire_id" name="service_destinataire_id" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#497e62] @error('service_destinataire_id') border-red-300 @enderror">
+                                <select id="service_destinataire_id" name="service_destinataire_id" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#006a4f] @error('service_destinataire_id') border-red-300 @enderror">
                                     <option value="">Choisir…</option>
                                     @foreach ($services as $service)
                                         <option value="{{ $service->id }}" @selected((string) old('service_destinataire_id') === (string) $service->id)>{{ $service->nom_service }}</option>
@@ -230,20 +230,20 @@
                             <div>
                                 <label for="localisation_destinataire" class="mb-1 block text-xs font-semibold text-slate-600">Nouvelle localisation</label>
                                 <input type="text" id="localisation_destinataire" name="localisation_destinataire" value="{{ old('localisation_destinataire') }}" maxlength="255" placeholder="Ex. Direction régionale de Kara"
-                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                             </div>
                             <div>
                                 <label for="date_effet" class="mb-1 block text-xs font-semibold text-slate-600">Date d’effet souhaitée</label>
                                 <input type="date" id="date_effet" name="date_effet" value="{{ old('date_effet') }}"
-                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                             </div>
                             <div class="sm:col-span-2">
                                 <label for="motif" class="mb-1 block text-xs font-semibold text-slate-600">Motif du mouvement</label>
                                 <textarea id="motif" name="motif" rows="2" maxlength="2000" placeholder="Raison du transfert ou de l’affectation…"
-                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">{{ old('motif') }}</textarea>
+                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#006a4f]">{{ old('motif') }}</textarea>
                             </div>
                             <div class="sm:col-span-2">
-                                <button type="submit" class="rounded-lg bg-[#103d32] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0d3227]">Demander l’affectation</button>
+                                <button type="submit" class="rounded-lg bg-[#006a4f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#004d3a]">Demander l’affectation</button>
                                 <p class="mt-2 text-xs text-slate-400">La demande devra être validée par un responsable habilité (ADMIN ou CHEF_SERVICE).</p>
                             </div>
                         </form>
@@ -314,7 +314,7 @@
                                     <div class="mt-3 flex flex-col gap-2 border-t border-slate-200/70 pt-3 sm:flex-row sm:items-end">
                                         <form method="POST" action="{{ route('interventions.terminer', $intervention) }}" class="flex flex-1 flex-col gap-2 sm:flex-row sm:items-center">
                                             @csrf
-                                            <select name="etat" class="flex-1 rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs outline-none focus:border-[#497e62]">
+                                            <select name="etat" class="flex-1 rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-xs outline-none focus:border-[#006a4f]">
                                                 <option value="">État après intervention…</option>
                                                 @foreach (\App\Models\Bien::ETATS as $etat)
                                                     @if ($etat !== 'EN_REPARATION')
@@ -322,7 +322,7 @@
                                                     @endif
                                                 @endforeach
                                             </select>
-                                            <button type="submit" class="rounded-lg bg-[#103d32] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#0d3227]">Terminer</button>
+                                            <button type="submit" class="rounded-lg bg-[#006a4f] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#004d3a]">Terminer</button>
                                         </form>
                                         <form method="POST" action="{{ route('interventions.annuler', $intervention) }}" onsubmit="return confirm('Annuler cette intervention ?');">
                                             @csrf
@@ -345,7 +345,7 @@
                             <div class="grid gap-3 sm:grid-cols-2">
                                 <div>
                                     <label class="mb-1 block text-xs font-semibold text-slate-600">Type</label>
-                                    <select name="type" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                                    <select name="type" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                                         <option value="REPARATION">Réparation</option>
                                         <option value="MAINTENANCE">Maintenance</option>
                                         <option value="VISITE_TECHNIQUE">Visite technique</option>
@@ -353,21 +353,21 @@
                                 </div>
                                 <div>
                                     <label class="mb-1 block text-xs font-semibold text-slate-600">Date de début</label>
-                                    <input type="date" name="date_debut" value="{{ now()->toDateString() }}" required class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                                    <input type="date" name="date_debut" value="{{ now()->toDateString() }}" required class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                                 </div>
                             </div>
                             <div>
                                 <label class="mb-1 block text-xs font-semibold text-slate-600">Description</label>
-                                <input type="text" name="description" required maxlength="2000" placeholder="Ex. Remplacement de la batterie" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                                <input type="text" name="description" required maxlength="2000" placeholder="Ex. Remplacement de la batterie" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                             </div>
                             <div class="grid gap-3 sm:grid-cols-2">
                                 <div>
                                     <label class="mb-1 block text-xs font-semibold text-slate-600">Prestataire</label>
-                                    <input type="text" name="prestataire" maxlength="255" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                                    <input type="text" name="prestataire" maxlength="255" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                                 </div>
                                 <div>
                                     <label class="mb-1 block text-xs font-semibold text-slate-600">Coût estimé (FCFA)</label>
-                                    <input type="number" name="cout" min="0" step="0.01" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                                    <input type="number" name="cout" min="0" step="0.01" class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                                 </div>
                             </div>
                             <button type="submit" class="w-fit rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Ouvrir l’intervention</button>
@@ -409,7 +409,7 @@
                             @csrf
                             <div>
                                 <label for="etat" class="mb-1 block text-xs font-semibold text-slate-600">Nouvel état</label>
-                                <select id="etat" name="etat" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                                <select id="etat" name="etat" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                                     @foreach (\App\Models\Bien::ETATS as $etat)
                                         @if ($etat !== $bien->etat)
                                             <option value="{{ $etat }}">{{ $etatLabels[$etat] ?? $etat }}</option>
@@ -420,10 +420,10 @@
                             <div>
                                 <label for="commentaire-etat" class="mb-1 block text-xs font-semibold text-slate-600">Commentaire</label>
                                 <input type="text" id="commentaire-etat" name="commentaire" maxlength="2000" placeholder="Motif du changement…"
-                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                             </div>
                             <div class="sm:col-span-2">
-                                <button type="submit" class="rounded-lg bg-[#103d32] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0d3227]">Changer l’état</button>
+                                <button type="submit" class="rounded-lg bg-[#006a4f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#004d3a]">Changer l’état</button>
                             </div>
                         </form>
                     @endif

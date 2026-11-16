@@ -27,7 +27,7 @@
         <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-800">{{ session('error') }}</div>
     @endif
 
-    <a href="{{ route('inventaires.index') }}" class="text-xs font-semibold text-[#497e62] hover:underline">← Inventaires</a>
+    <a href="{{ route('inventaires.index') }}" class="text-xs font-semibold text-[#006a4f] hover:underline">← Inventaires</a>
 
     <section class="mt-2 flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
         <div>
@@ -81,7 +81,7 @@
                 @forelse ($inventaire->lignes as $ligne)
                     <div class="flex flex-wrap items-center justify-between gap-2 py-3">
                         <div class="min-w-0">
-                            <a href="{{ route('biens.show', $ligne->bien) }}" class="text-sm font-medium text-slate-800 hover:text-[#285c48] hover:underline">
+                            <a href="{{ route('biens.show', $ligne->bien) }}" class="text-sm font-medium text-slate-800 hover:text-[#006a4f] hover:underline">
                                 {{ $ligne->bien?->numero_inventaire }} — {{ $ligne->bien?->designation }}
                             </a>
                             <p class="mt-0.5 text-xs text-slate-500">
@@ -111,7 +111,7 @@
                         @csrf
                         <div>
                             <label for="bien_id" class="mb-1 block text-xs font-semibold text-slate-600">Bien</label>
-                            <select id="bien_id" name="bien_id" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                            <select id="bien_id" name="bien_id" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                                 <option value="">Choisir…</option>
                                 @foreach ($biens as $bien)
                                     <option value="{{ $bien->id }}">{{ $bien->numero_inventaire }} — {{ $bien->designation }}</option>
@@ -120,7 +120,7 @@
                         </div>
                         <div>
                             <label for="statut" class="mb-1 block text-xs font-semibold text-slate-600">Constat</label>
-                            <select id="statut" name="statut" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                            <select id="statut" name="statut" required class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                                 <option value="PRESENT">Présent</option>
                                 <option value="ANOMALIE">Anomalie</option>
                                 <option value="INTROUVABLE">Introuvable</option>
@@ -129,12 +129,12 @@
                         <div>
                             <label for="commentaire" class="mb-1 block text-xs font-semibold text-slate-600">Commentaire</label>
                             <textarea id="commentaire" name="commentaire" rows="2" maxlength="2000" placeholder="Détail du constat…"
-                                class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#497e62]">{{ old('commentaire') }}</textarea>
+                                class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:border-[#006a4f]">{{ old('commentaire') }}</textarea>
                         </div>
                         @error('bien_id')<p class="text-xs text-red-600">{{ $message }}</p>@enderror
                         @error('statut')<p class="text-xs text-red-600">{{ $message }}</p>@enderror
                         @error('inventaire')<p class="text-xs text-red-600">{{ $message }}</p>@enderror
-                        <button type="submit" class="rounded-lg bg-[#103d32] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0d3227]">Enregistrer le relevé</button>
+                        <button type="submit" class="rounded-lg bg-[#006a4f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#004d3a]">Enregistrer le relevé</button>
                         <p class="text-xs text-slate-400">Un bien déclaré « Introuvable » passera automatiquement à l’état INTROUVABLE.</p>
                     </form>
                 </section>

@@ -6,7 +6,7 @@
 @section('content')
     <section class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
         <div>
-            <p class="text-sm font-medium text-[#497e62]">Espace de gestion</p>
+            <p class="text-sm font-medium text-[#006a4f]">Espace de gestion</p>
             <h1 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">Bonjour, {{ $user->name }}</h1>
             <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Vue d’ensemble du patrimoine : inventaire, mouvements, état des biens et contrôles.</p>
         </div>
@@ -111,10 +111,10 @@
     <section class="mt-10">
         <div class="mb-4 flex items-end justify-between gap-4">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[#497e62]">État du parc</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[#006a4f]">État du parc</p>
                 <h2 class="mt-1 text-xl font-semibold tracking-tight text-slate-900">Répartition des biens actifs par état</h2>
             </div>
-            <a href="{{ route('biens.index') }}" class="text-xs font-semibold text-[#497e62] hover:underline">Voir l’inventaire →</a>
+            <a href="{{ route('biens.index') }}" class="text-xs font-semibold text-[#006a4f] hover:underline">Voir l’inventaire →</a>
         </div>
 
         @php
@@ -172,13 +172,13 @@
                     <h3 class="font-semibold text-slate-800">Anomalies d’inventaire récentes</h3>
                     <p class="mt-1 text-xs text-slate-400">Biens déclarés en anomalie ou introuvables</p>
                 </div>
-                <a href="{{ route('inventaires.index') }}" class="text-xs font-semibold text-[#497e62] hover:underline">Contrôles →</a>
+                <a href="{{ route('inventaires.index') }}" class="text-xs font-semibold text-[#006a4f] hover:underline">Contrôles →</a>
             </div>
             <div class="divide-y divide-slate-100">
                 @forelse ($anomaliesRecentes as $ligne)
                     <div class="px-5 py-3.5">
                         <div class="flex items-center justify-between gap-3">
-                            <a href="{{ route('biens.show', $ligne->bien) }}" class="truncate text-sm font-medium text-slate-800 hover:text-[#285c48] hover:underline">
+                            <a href="{{ route('biens.show', $ligne->bien) }}" class="truncate text-sm font-medium text-slate-800 hover:text-[#006a4f] hover:underline">
                                 {{ $ligne->bien?->numero_inventaire }} — {{ $ligne->bien?->designation }}
                             </a>
                             <span class="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold {{ $ligne->statut === 'INTROUVABLE' ? 'bg-red-50 text-red-700' : 'bg-amber-50 text-amber-700' }}">
@@ -202,7 +202,7 @@
                     <h3 class="font-semibold text-slate-800">Derniers mouvements</h3>
                     <p class="mt-1 text-xs text-slate-400">Demandes d’affectation récentes</p>
                 </div>
-                <a href="{{ route('mouvements.index') }}" class="text-xs font-semibold text-[#497e62] hover:underline">Tout voir →</a>
+                <a href="{{ route('mouvements.index') }}" class="text-xs font-semibold text-[#006a4f] hover:underline">Tout voir →</a>
             </div>
             <div class="divide-y divide-slate-100">
                 @forelse ($derniersMouvements as $mouvement)
@@ -243,7 +243,7 @@
     <section id="referentiels" class="mt-10">
         <div class="mb-4 flex items-end justify-between gap-4">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[#497e62]">Données de référence</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[#006a4f]">Données de référence</p>
                 <h2 class="mt-1 text-xl font-semibold tracking-tight text-slate-900">Référentiels administratifs</h2>
             </div>
             <span class="hidden text-xs text-slate-400 sm:inline">Données affichées depuis la base SGPE</span>
@@ -261,7 +261,7 @@
                 <div class="divide-y divide-slate-100">
                     @forelse ($categories as $category)
                         <div class="flex items-start gap-3 px-5 py-4">
-                            <span class="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-[#edf5ee] text-xs font-bold text-[#285c48]">
+                            <span class="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-[#eef4ef] text-xs font-bold text-[#006a4f]">
                                 {{ mb_strtoupper(mb_substr($category->libelle ?: 'À', 0, 1)) }}
                             </span>
                             <div class="min-w-0">
@@ -307,18 +307,18 @@
         </div>
     </section>
 
-    <section class="mt-8 flex flex-col gap-3 rounded-2xl border border-[#d7e8d9] bg-[#edf5ee] p-5 sm:flex-row sm:items-center sm:justify-between">
+    <section class="mt-8 flex flex-col gap-3 rounded-2xl border border-[#d7e8d9] bg-[#eef4ef] p-5 sm:flex-row sm:items-center sm:justify-between">
         <div class="flex items-start gap-3">
-            <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-white text-[#285c48]">
+            <span class="grid size-9 shrink-0 place-items-center rounded-xl bg-white text-[#006a4f]">
                 <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                     <path d="M12 3v18M3 12h18"/>
                 </svg>
             </span>
             <div>
                 <p class="text-sm font-semibold text-[#214d3d]">Le système est opérationnel</p>
-                <p class="mt-1 text-xs leading-5 text-[#497e62]">Inventaire des biens, affectations, maintenance, contrôles d’inventaire et rapports sont disponibles.</p>
+                <p class="mt-1 text-xs leading-5 text-[#006a4f]">Inventaire des biens, affectations, maintenance, contrôles d’inventaire et rapports sont disponibles.</p>
             </div>
         </div>
-        <a href="{{ route('rapports.index') }}" class="shrink-0 rounded-lg bg-white/80 px-3 py-2 text-xs font-semibold text-[#497e62] transition hover:bg-white">Exporter un rapport →</a>
+        <a href="{{ route('rapports.index') }}" class="shrink-0 rounded-lg bg-white/80 px-3 py-2 text-xs font-semibold text-[#006a4f] transition hover:bg-white">Exporter un rapport →</a>
     </section>
 @endsection

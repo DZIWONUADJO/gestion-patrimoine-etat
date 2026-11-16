@@ -5,10 +5,10 @@
     <title>Affectations et transferts</title>
     <style>
         body { font-family: DejaVu Sans, sans-serif; font-size: 9px; color: #1e293b; }
-        h1 { font-size: 15px; color: #103d32; margin-bottom: 2px; }
+        h1 { font-size: 15px; color: #006a4f; margin-bottom: 2px; }
         .meta { color: #64748b; font-size: 8px; margin-bottom: 10px; }
         table { width: 100%; border-collapse: collapse; }
-        th { background: #103d32; color: #fff; text-align: left; padding: 5px 4px; font-size: 8px; text-transform: uppercase; }
+        th { background: #006a4f; color: #fff; text-align: left; padding: 5px 4px; font-size: 8px; text-transform: uppercase; }
         td { padding: 4px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
         tr:nth-child(even) td { background: #f8fafc; }
     </style>

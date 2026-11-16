@@ -33,7 +33,7 @@
 
     <section class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
         <div>
-            <p class="text-sm font-medium text-[#497e62]">Circuit de validation</p>
+            <p class="text-sm font-medium text-[#006a4f]">Circuit de validation</p>
             <h1 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">Affectations et transferts</h1>
             <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Demandes proposées par les gestionnaires, validées par les responsables habilités, avec historique complet.</p>
         </div>
@@ -49,11 +49,11 @@
             <div class="sm:col-span-2">
                 <label for="q" class="mb-1 block text-xs font-semibold text-slate-500">Recherche bien</label>
                 <input type="search" id="q" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="N° inventaire ou désignation…"
-                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-[#497e62] focus:ring-2 focus:ring-[#497e62]/20">
+                    class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-[#006a4f] focus:ring-2 focus:ring-[#006a4f]/20">
             </div>
             <div>
                 <label for="statut" class="mb-1 block text-xs font-semibold text-slate-500">Statut</label>
-                <select id="statut" name="statut" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                <select id="statut" name="statut" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                     <option value="">Tous</option>
                     @foreach ($statuts as $statut)
                         <option value="{{ $statut }}" @selected(($filters['statut'] ?? null) === $statut)>{{ $statutLabels[$statut] }}</option>
@@ -62,7 +62,7 @@
             </div>
             <div>
                 <label for="bien_id" class="mb-1 block text-xs font-semibold text-slate-500">Bien</label>
-                <select id="bien_id" name="bien_id" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#497e62]">
+                <select id="bien_id" name="bien_id" class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#006a4f]">
                     <option value="">Tous</option>
                     @foreach ($biens as $bien)
                         <option value="{{ $bien->id }}" @selected(($filters['bien_id'] ?? null) == $bien->id)>{{ $bien->numero_inventaire }} — {{ $bien->designation }}</option>
@@ -70,7 +70,7 @@
                 </select>
             </div>
             <div class="flex items-end">
-                <button type="submit" class="w-full rounded-lg bg-[#103d32] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0d3227]">Filtrer</button>
+                <button type="submit" class="w-full rounded-lg bg-[#006a4f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#004d3a]">Filtrer</button>
             </div>
         </form>
     </section>
@@ -81,9 +81,9 @@
                 <div class="flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
                     <div class="min-w-0">
                         <div class="flex flex-wrap items-center gap-2">
-                            <a href="{{ route('biens.show', $affectation->bien) }}" class="font-mono text-xs font-semibold text-[#285c48] hover:underline">{{ $affectation->bien?->numero_inventaire }}</a>
+                            <a href="{{ route('biens.show', $affectation->bien) }}" class="font-mono text-xs font-semibold text-[#006a4f] hover:underline">{{ $affectation->bien?->numero_inventaire }}</a>
                             <span class="text-xs text-slate-400">·</span>
-                            <a href="{{ route('biens.show', $affectation->bien) }}" class="text-sm font-semibold text-slate-800 hover:text-[#285c48]">{{ $affectation->bien?->designation }}</a>
+                            <a href="{{ route('biens.show', $affectation->bien) }}" class="text-sm font-semibold text-slate-800 hover:text-[#006a4f]">{{ $affectation->bien?->designation }}</a>
                             <span class="rounded-full px-2.5 py-1 text-xs font-semibold {{ $statutStyles[$affectation->statut] ?? 'bg-slate-100 text-slate-600' }}">
                                 {{ $statutLabels[$affectation->statut] ?? $affectation->statut }}
                             </span>
@@ -124,7 +124,7 @@
                                 @if ($affectation->demandeur_id !== $user->id)
                                     <form method="POST" action="{{ route('affectations.valider', $affectation) }}">
                                         @csrf
-                                        <button type="submit" class="rounded-lg bg-[#103d32] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-[#0d3227]">Valider</button>
+                                        <button type="submit" class="rounded-lg bg-[#006a4f] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-[#004d3a]">Valider</button>
                                     </form>
                                     <details class="relative">
                                         <summary class="cursor-pointer list-none rounded-lg border border-red-200 bg-red-50 px-3.5 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100">Rejeter</summary>

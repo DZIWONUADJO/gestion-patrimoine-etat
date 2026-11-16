@@ -23,33 +23,37 @@
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/armoiries-togo.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-[#f5f7f5] font-sans text-slate-900 antialiased">
-    <main class="grid min-h-screen place-items-center px-5 py-12">
+<body class="min-h-screen bg-[#eef2ee] font-sans text-slate-900 antialiased">
+    <div class="h-1.5 w-full bg-gradient-to-r from-gouv-vert via-gouv-or to-gouv-rouge"></div>
+
+    <main class="grid min-h-[calc(100vh-6px)] place-items-center px-5 py-10">
         <div class="relative w-full max-w-lg text-center">
             <img src="{{ asset('images/armoiries-togo.svg') }}" alt="" aria-hidden="true"
-                class="pointer-events-none absolute left-1/2 top-1/2 h-80 w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.08]">
+                class="pointer-events-none absolute left-1/2 top-1/2 h-80 w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.05]">
 
-            <div class="relative">
-                <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Armoiries de la République Togolaise" class="mx-auto h-24 w-auto drop-shadow">
+            <div class="relative rounded-2xl border border-slate-200 bg-white px-8 py-10 shadow-sm">
+                <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Armoiries de la République Togolaise" class="mx-auto h-16 w-auto">
 
-                <p class="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-[#497e62]">Erreur {{ $code }}</p>
-                <h1 class="mt-3 text-4xl font-semibold tracking-tight text-[#103d32] sm:text-5xl">{{ $title }}</h1>
+                <p class="mt-5 text-xs font-bold uppercase tracking-[0.24em] text-gouv-vert">Erreur {{ $code }}</p>
+                <div class="mx-auto mt-3 h-px w-12 bg-gouv-or"></div>
+                <h1 class="mt-4 font-serif text-3xl font-bold tracking-tight text-slate-900">{{ $title }}</h1>
                 <p class="mx-auto mt-4 max-w-md text-sm leading-6 text-slate-500">{{ $description }}</p>
 
                 <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <a href="{{ url('/') }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#174b3d] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#103d32] focus:outline-none focus:ring-4 focus:ring-[#174b3d]/20">
+                    <a href="{{ url('/') }}" class="inline-flex items-center justify-center gap-2 rounded-lg bg-gouv-vert px-5 py-3 text-sm font-semibold text-white transition hover:bg-gouv-vert-fonce focus:outline-none focus:ring-2 focus:ring-gouv-vert/30">
                         Retour à l’accueil
                         <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M19 12H5M11 6l-6 6 6 6"/>
                         </svg>
                     </a>
-                    <a href="{{ route('login') }}" class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-[#4a8067] hover:text-[#174b3d]">
+                    <a href="{{ route('login') }}" class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-gouv-vert hover:text-gouv-vert">
                         Page de connexion
                     </a>
                 </div>
-
-                <p class="mt-8 text-xs text-slate-400">SGPE · Système de Gestion du Patrimoine de l’État</p>
             </div>
+
+            <p class="relative mt-6 font-serif text-xs italic tracking-wide text-slate-500">« Travail — Liberté — Patrie »</p>
+            <p class="relative mt-1 text-xs text-slate-400">SGPE · Système de Gestion du Patrimoine de l’État</p>
         </div>
     </main>
 </body>
