@@ -6,6 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Connexion · SGPE</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/armoiries-togo.svg') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-[#eef2ee] font-sans text-slate-900 antialiased">
@@ -18,7 +21,7 @@
                     <img src="{{ asset('images/armoiries-togo.svg') }}" alt="Armoiries de la République Togolaise" class="mx-auto h-20 w-auto">
                     <p class="mt-5 font-serif text-sm font-semibold uppercase tracking-[0.28em] text-gouv-vert">République Togolaise</p>
                     <div class="mx-auto mt-3 h-px w-16 bg-gouv-or"></div>
-                    <h1 class="mt-4 font-serif text-2xl font-bold tracking-tight text-slate-900">SGPE</h1>
+                    <h1 class="mt-4 font-serif text-3xl font-bold tracking-tight text-slate-900">SGPE</h1>
                     <p class="mt-1 text-sm text-slate-500">Système de Gestion du Patrimoine de l’État</p>
                 </div>
 

@@ -21,6 +21,9 @@
     <meta name="robots" content="noindex">
     <title>Erreur {{ $code }} · SGPE</title>
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/armoiries-togo.svg') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-[#eef2ee] font-sans text-slate-900 antialiased">
@@ -36,7 +39,7 @@
 
                 <p class="mt-5 text-xs font-bold uppercase tracking-[0.24em] text-gouv-vert">Erreur {{ $code }}</p>
                 <div class="mx-auto mt-3 h-px w-12 bg-gouv-or"></div>
-                <h1 class="mt-4 font-serif text-3xl font-bold tracking-tight text-slate-900">{{ $title }}</h1>
+                <h1 class="mt-4 font-serif text-4xl font-bold tracking-tight text-slate-900">{{ $title }}</h1>
                 <p class="mx-auto mt-4 max-w-md text-sm leading-6 text-slate-500">{{ $description }}</p>
 
                 <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

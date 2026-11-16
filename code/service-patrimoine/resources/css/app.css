@@ -8,7 +8,7 @@
 @theme {
     --font-sans: Arial, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-serif: Georgia, 'Times New Roman', serif;
+    --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
 
     /* Palette officielle — Charte graphique de la République Togolaise */
     --color-gouv-vert: #006a4f;
@@ -18,4 +18,10 @@
     --color-gouv-noir: #000000;
     --color-gouv-gris: #595959;
     --color-gouv-bleu: #1d4e89;
+}
+
+@layer base {
+    html {
+        font-size: 17px;
+    }
 }
