@@ -14,6 +14,8 @@ services:
   service-auth:
     build: ./service-auth
     container_name: service_auth
+    env_file:
+      - ./service-auth/.env
     ports:
       - "8001:8000"
     depends_on:
@@ -22,6 +24,8 @@ services:
   service-patrimoine:
     build: ./service-patrimoine
     container_name: service_patrimoine
+    env_file:
+      - ./service-patrimoine/.env
     environment:
       APP_NAME: "SGPE"
       APP_URL: "http://127.0.0.1:8002"

@@ -1,0 +1,88 @@
+databases:
+  - name: sgpe-db
+    plan: free
+    databaseName: patrimoine_etat
+    user: sgpe_admin
+
+services:
+  - type: web
+    name: sgpe-patrimoine
+    runtime: docker
+    plan: free
+    dockerfilePath: ./code/service-patrimoine/Dockerfile
+    dockerContext: ./code/service-patrimoine
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: SGPE
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        value: https://sgpe-patrimoine.onrender.com
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: sgpe-db
+          property: host
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        fromDatabase:
+          name: sgpe-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: sgpe-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: sgpe-db
+          property: password
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
+
+  - type: web
+    name: sgpe-auth
+    runtime: docker
+    plan: free
+    dockerfilePath: ./code/service-auth/Dockerfile
+    dockerContext: ./code/service-auth
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: SGPE Auth
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        value: https://sgpe-auth.onrender.com
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: sgpe-db
+          property: host
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        fromDatabase:
+          name: sgpe-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: sgpe-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: sgpe-db
+          property: password
+      - key: SANCTUM_STATEFUL_DOMAINS
+        value: sgpe-patrimoine.onrender.com
